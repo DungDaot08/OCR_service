@@ -1,7 +1,6 @@
-# Base image
 FROM python:3.11-slim
 
-# Cài Tesseract OCR + poppler-utils (cho pdf2image)
+# 1. Cài thư viện hệ thống
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-vie \
@@ -9,14 +8,15 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy source code
+# 2. Set workdir
 WORKDIR /app
+
+# 3. Copy requirements và cài
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# 4. Copy toàn bộ source code
 COPY . .
 
-# Set Tesseract data path nếu cần
-ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata
-
-# Chạy FastAPI
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]
+# 5. Chạy server FastAPI
+CMD ["uvicorn", "main_api:app", "--host", "0.0.0.0", "--port", "10000"]
