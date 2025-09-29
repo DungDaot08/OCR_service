@@ -5,7 +5,7 @@ import json
 from openai import OpenAI
 
 # Lấy API key từ biến môi trường
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="")
 
 def safe_json_parse(text: str):
     """Parse JSON an toàn, lọc ra block JSON hợp lệ"""
