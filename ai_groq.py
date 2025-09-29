@@ -5,7 +5,7 @@ import json
 from groq import Groq  # thay vì openai
 
 # Lấy API key từ biến môi trường (khuyến nghị) hoặc hardcode để test
-client = Groq(api_key=os.getenv("GROQ_API_KEY", "API_key"))
+client = Groq(api_key=os.getenv("GROQ_API_KEY", "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"))
 
 def safe_json_parse(text: str):
     """Parse JSON an toàn, lọc ra block JSON hợp lệ"""

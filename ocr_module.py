@@ -67,7 +67,7 @@ def ocr_pdf_first6(pdf_path: str, lang: str = "vie") -> str:
     OCR chỉ 10 trang đầu tiên của PDF
     """
     print(f"===== OCR file {pdf_path} (chỉ 10 trang đầu) =====")
-    images = convert_from_path(pdf_path, first_page=1, last_page=6)
+    images = convert_from_path(pdf_path, first_page=1, last_page=1)
 
     texts = []
     for idx, img in enumerate(images):
