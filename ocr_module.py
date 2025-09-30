@@ -7,12 +7,12 @@ from concurrent.futures import ThreadPoolExecutor
 from difflib import SequenceMatcher
 import uuid
 import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Giả sử bạn để tesseract trong thư mục dự án: ./tesseract/tesseract.exe
-TESSERACT_PATH = os.path.join(BASE_DIR, "tesseract", "tesseract.exe")
-pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+#TESSERACT_PATH = os.path.join(BASE_DIR, "tesseract", "tesseract.exe")
+#pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
-POPPLER_PATH = os.path.join(BASE_DIR, "poppler", "Library", "bin")  # thư mục chứa poppler.exe
+#POPPLER_PATH = os.path.join(BASE_DIR, "poppler", "Library", "bin")  # thư mục chứa poppler.exe
 
 # -------------------------
 # OCR 1 trang với bounding box
@@ -35,7 +35,7 @@ def ocr_page_with_bbox(image, lang="vie"):
 def ocr_pdf_with_boxes(pdf_path: str, lang: str = "vie") -> dict:
     """OCR 3 trang đầu, trả về text + bbox"""
     print(f"===== OCR file {pdf_path} (3 trang đầu, có bbox) =====")
-    images = convert_from_path(pdf_path, first_page=1, last_page=6, dpi=100, poppler_path=POPPLER_PATH)
+    images = convert_from_path(pdf_path, first_page=1, last_page=6, dpi=100)
     results = {"pdf_file": pdf_path, "ocr_pages": []}
 
     def process_page(idx, img):
