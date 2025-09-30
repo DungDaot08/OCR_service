@@ -35,7 +35,8 @@ def ocr_page_with_bbox(image, lang="vie"):
 def ocr_pdf_with_boxes(pdf_path: str, lang: str = "vie") -> dict:
     """OCR 3 trang đầu, trả về text + bbox"""
     print(f"===== OCR file {pdf_path} (3 trang đầu, có bbox) =====")
-    images = convert_from_path(pdf_path, first_page=1, last_page=6, dpi=100)
+    #images = convert_from_path(pdf_path, first_page=1, last_page=6, dpi=100, poppler_path=POPPLER_PATH)
+    images = convert_from_path(pdf_path, first_page=1, last_page=1, dpi=100)
     results = {"pdf_file": pdf_path, "ocr_pages": []}
 
     def process_page(idx, img):
@@ -51,7 +52,7 @@ def ocr_pdf_with_boxes(pdf_path: str, lang: str = "vie") -> dict:
 
     results["ocr_pages"].sort(key=lambda x: x["page"])
     results["text"] = " ".join([p["text"] for p in results["ocr_pages"]])
-    #results["images"] = images  # giữ ảnh gốc của từng trang để crop
+    results["images"] = images  # giữ ảnh gốc của từng trang để crop
     return results
 
 # -------------------------
@@ -180,7 +181,7 @@ def crop_fields_from_ocr2(ocr_result: dict, ai_json: dict, output_dir: str):
                     if bbox:
                         crop_img = img.crop(bbox)
                         # Tạo tên file: parent_key + key + uuid
-                        filename = f"{safe_filename(parent_key + key)}.png"
+                        filename = f"{safe_filename(parent_key + key)}_{uuid.uuid4().hex}.png"
                         full_path = os.path.join(output_dir, filename)
                         crop_img.save(full_path)
                         if top_level_key == "phieuchuyen":
